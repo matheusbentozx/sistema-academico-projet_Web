@@ -1,0 +1,27 @@
+{
+    // Configurações de execução do VS Code.
+    // Abra "Executar e Depurar" (Ctrl+Shift+D), escolha uma opção e aperte F5.
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "SisAcad (H2 - sem MySQL)",
+            "request": "launch",
+            "mainClass": "br.edu.sistemaacademico.SistemaAcademicoApplication",
+            "projectName": "sistema-academico",
+            "args": "--spring.profiles.active=h2"
+        },
+        {
+            "type": "java",
+            "name": "SisAcad (MySQL)",
+            "request": "launch",
+            "mainClass": "br.edu.sistemaacademico.SistemaAcademicoApplication",
+            "projectName": "sistema-academico",
+            // Ajuste aqui o usuário e a senha do seu MySQL
+            "env": {
+                "DB_USER": "root",
+                "DB_PASSWORD": "root"
+            }
+        }
+    ]
+}
