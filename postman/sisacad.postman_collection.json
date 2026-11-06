@@ -1,0 +1,115 @@
+{
+  "info": {
+    "name": "SisAcad - Biblioteca e Achados e Perdidos",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base", "value": "http://localhost:8080/api" }
+  ],
+  "item": [
+    {
+      "name": "Painel",
+      "item": [
+        { "name": "Indicadores", "request": { "method": "GET", "url": "{{base}}/dashboard" } }
+      ]
+    },
+    {
+      "name": "Livros",
+      "item": [
+        { "name": "Listar", "request": { "method": "GET", "url": "{{base}}/livros" } },
+        { "name": "Buscar por título/autor", "request": { "method": "GET", "url": "{{base}}/livros?busca=machado" } },
+        { "name": "Somente disponíveis", "request": { "method": "GET", "url": "{{base}}/livros?status=DISPONIVEL" } },
+        { "name": "Detalhar", "request": { "method": "GET", "url": "{{base}}/livros/1" } },
+        { "name": "Disponibilidade", "request": { "method": "GET", "url": "{{base}}/livros/1/disponibilidade" } },
+        {
+          "name": "Cadastrar",
+          "request": {
+            "method": "POST", "url": "{{base}}/livros",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"titulo\": \"Algoritmos\",\n  \"autor\": \"Thomas Cormen\",\n  \"isbn\": \"9788535236996\",\n  \"categoria\": \"Computação\"\n}" }
+          }
+        },
+        {
+          "name": "Editar",
+          "request": {
+            "method": "PUT", "url": "{{base}}/livros/1",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"titulo\": \"Engenharia de Software\",\n  \"autor\": \"Ian Sommerville\",\n  \"isbn\": \"9788543024974\",\n  \"categoria\": \"Engenharia\"\n}" }
+          }
+        },
+        { "name": "Excluir", "request": { "method": "DELETE", "url": "{{base}}/livros/3" } }
+      ]
+    },
+    {
+      "name": "Usuários",
+      "item": [
+        { "name": "Listar", "request": { "method": "GET", "url": "{{base}}/usuarios" } },
+        {
+          "name": "Cadastrar",
+          "request": {
+            "method": "POST", "url": "{{base}}/usuarios",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nome\": \"Diego Rocha\",\n  \"matricula\": \"2024010\",\n  \"email\": \"diego@aluno.edu.br\"\n}" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Empréstimos",
+      "item": [
+        { "name": "Histórico", "request": { "method": "GET", "url": "{{base}}/emprestimos" } },
+        { "name": "Somente ativos", "request": { "method": "GET", "url": "{{base}}/emprestimos?status=ATIVO" } },
+        {
+          "name": "Registrar empréstimo",
+          "request": {
+            "method": "POST", "url": "{{base}}/emprestimos",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"livroId\": 1,\n  \"usuarioId\": 1\n}" }
+          }
+        },
+        { "name": "Registrar devolução", "request": { "method": "PUT", "url": "{{base}}/emprestimos/1/devolucao" } }
+      ]
+    },
+    {
+      "name": "Achados e Perdidos",
+      "item": [
+        { "name": "Listar", "request": { "method": "GET", "url": "{{base}}/objetos" } },
+        { "name": "Pesquisar", "request": { "method": "GET", "url": "{{base}}/objetos?busca=chaveiro" } },
+        { "name": "Detalhar", "request": { "method": "GET", "url": "{{base}}/objetos/1" } },
+        {
+          "name": "Registrar objeto",
+          "request": {
+            "method": "POST", "url": "{{base}}/objetos",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nome\": \"Guarda-chuva\",\n  \"descricao\": \"Guarda-chuva azul com cabo de madeira.\",\n  \"localEncontrado\": \"Bloco B, sala 12\",\n  \"dataEncontrado\": \"2026-10-30\"\n}" }
+          }
+        },
+        {
+          "name": "Editar",
+          "request": {
+            "method": "PUT", "url": "{{base}}/objetos/1",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nome\": \"Mochila preta\",\n  \"descricao\": \"Mochila preta, chaveiro vermelho, caderno azul, estojo e carregador.\",\n  \"localEncontrado\": \"Biblioteca - 2º andar\",\n  \"dataEncontrado\": \"2026-10-28\"\n}" }
+          }
+        },
+        {
+          "name": "Mover para estoque",
+          "request": {
+            "method": "PATCH", "url": "{{base}}/objetos/1/status",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"EM_ESTOQUE\"\n}" }
+          }
+        },
+        {
+          "name": "Devolver ao proprietário",
+          "request": {
+            "method": "PUT", "url": "{{base}}/objetos/1/devolucao",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nomeProprietario\": \"João Pereira\"\n}" }
+          }
+        },
+        { "name": "Excluir", "request": { "method": "DELETE", "url": "{{base}}/objetos/2" } }
+      ]
+    }
+  ]
+}
